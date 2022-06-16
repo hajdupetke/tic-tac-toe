@@ -9,14 +9,7 @@ module.exports = {
       'gainsboro': '#D8DBE2',
       'blue': '#A9BCD0'
     },
-    extend: {
-      padding: {
-        '1/2': '50%',
-        '1/3': '33.333333%', 
-        '2/5': '40%',
-        full: '100%',
-      },
-    },
+    extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio'),],
 }

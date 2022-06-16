@@ -1,6 +1,6 @@
 const Square = (props) => {
     return (
-        <div className='mt-4 text-center bg-gainsboro w-full h-0 shadow-lg pb-full rounded-xl text-8xl'>
+        <div className='flex justify-center bg-gainsboro w-11/12 h-0 aspect-w-1 aspect-h-1 shadow-lg rounded-xl'>
             {props.children}
         </div>
     )
