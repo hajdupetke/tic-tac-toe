@@ -7,7 +7,9 @@ module.exports = {
     colors: {
       'charcoal': '#3E505B',
       'gainsboro': '#D8DBE2',
-      'blue': '#A9BCD0'
+      'blue': '#A9BCD0',
+      'green': '#4FB477',
+      'red': '#FF1053'
     },
     extend: {},
   },
