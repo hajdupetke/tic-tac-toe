@@ -9,7 +9,8 @@ module.exports = {
       'gainsboro': '#D8DBE2',
       'blue': '#A9BCD0',
       'green': '#4FB477',
-      'red': '#FF1053'
+      'red': '#FF1053',
+      'hover': '#AE0938'
     },
     extend: {},
   },
