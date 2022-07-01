@@ -29,11 +29,23 @@ const Multiplayer = () => {
     }, []);
 
     const handleTurn = (row, col) => {
-        if (!win && table[row][col] !== "o" && table[row][col] !== "x") {
-            turn ? (table[row][col] = "o") : (table[row][col] = "x");
-            setTurn(!turn);
-            setWin(checkWin(table));
-            socket.emit("move", { win: win, table: table, turn: turn });
+        let tempTable = table;
+        if (
+            !win &&
+            tempTable[row][col] !== "o" &&
+            tempTable[row][col] !== "x"
+        ) {
+            turn ? (tempTable[row][col] = "o") : (tempTable[row][col] = "x");
+            setTable(tempTable);
+            let tempTurn = !turn;
+            setTurn(tempTurn);
+            let tempWin = checkWin(table);
+            setWin(tempWin);
+            socket.emit("move", {
+                win: tempWin,
+                table: tempTable,
+                turn: tempTurn,
+            });
         }
     };
 
