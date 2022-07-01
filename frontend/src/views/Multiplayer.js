@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { io } from "socket.io-client";
 import Table from "../components/Table.js";
-import { checkWin } from "../logic/Game";
 
-const Singleplayer = () => {
+const Multiplayer = () => {
     const [table, setTable] = useState([
         ["", "", ""],
         ["", "", ""],
@@ -11,19 +11,32 @@ const Singleplayer = () => {
     const [win, setWin] = useState(false);
     const [turn, setTurn] = useState(true); //true is circle's turn, false is cross's turn
 
-    const handleTurn = (row, col) => {
-        if (!win && table[row][col] !== "o" && table[row][col] !== "x") {
-            turn ? (table[row][col] = "o") : (table[row][col] = "x");
-            setTurn(!turn);
-            setWin(checkWin(table));
-        }
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        const newSocket = io("http://localhost:3002");
+        newSocket.on("connect", (socket) => {
+            console.log("socket connected", socket);
+        });
+
+        setSocket(newSocket);
+        return () => newSocket.close();
+    }, []);
+
+    const moveHandler = () => {
+        socket.on("opponent_move", (data) => {
+            setTable(data.table);
+            setWin(data.win);
+            setTurn(data.turn);
+        });
     };
 
-    const restart = (e) => {
-        e.preventDefault();
-        table.map((x, i) => x.map((y, j) => (table[i][j] = "")));
-        setTurn(true);
-        setWin(false);
+    const handleWin = () => {
+        setWin(true);
+    };
+
+    const handleTurn = () => {
+        setTurn(!turn);
     };
 
     return (
@@ -42,18 +55,14 @@ const Singleplayer = () => {
                     </p>
                 </div>
             )}
-            <Table table={table} onClick={handleTurn} />
-            {win ? (
-                <button
-                    className="mb-5 mt-5 rounded-full bg-red px-5 py-3 hover:bg-hover text-gainsboro shadow-2xl"
-                    onClick={restart}
-                >
-                    New Game
-                </button>
-            ) : (
-                <></>
-            )}
+            <Table
+                table={table}
+                win={win}
+                setWin={handleWin}
+                turn={turn}
+                setTurn={handleTurn}
+            />
         </div>
     );
 };
-export default Singleplayer;
+export default Multiplayer;
