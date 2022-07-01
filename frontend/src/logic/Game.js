@@ -36,5 +36,5 @@ export const checkWin = (table) => {
         win = true;
     }
 
-    return win;
+    return win
 };
