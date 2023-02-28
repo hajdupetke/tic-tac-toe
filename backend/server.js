@@ -14,6 +14,7 @@ const io = new Server(httpServer, {
             "http://localhost:3000",
             "https://tic-tac-toe-gamma-two.vercel.app/",
         ],
+        credentials: true,
     },
 });
 
