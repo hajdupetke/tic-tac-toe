@@ -1,17 +1,19 @@
-const express = require("express");
+import { Server } from "socket.io";
+import { createServer } from "http";
+import express from "express";
+
 const app = express();
-const http = require("http");
-const server = http.createServer();
-const { Server } = require("socket.io");
-const cors = require("cors");
-const e = require("express");
 
-app.use(cors());
+const httpServer = createServer();
 
-const io = new Server(server, {
+const PORT = process.env.PORT || 5000;
+
+const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"],
+        origin: [
+            "http://localhost:3000",
+            "https://tic-tac-toe-gamma-two.vercel.app/",
+        ],
     },
 });
 
@@ -45,8 +47,8 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(3002, () => {
-    console.log("listening on 3002");
+httpServer.listen(PORT, () => {
+    console.log("listening on " + PORT);
 });
 
 /*
