@@ -12,7 +12,7 @@ const io = new Server(httpServer, {
     cors: {
         origin: [
             "http://localhost:3000",
-            "https://tic-tac-toe-gamma-two.vercel.app/",
+            "https://tic-tac-toe-gamma-two.vercel.app",
         ],
         credentials: true,
     },
