@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { socket } from "../logic/Socket";
 
 const Lobby = () => {
     const [roomId, setRoomId] = useState("");
